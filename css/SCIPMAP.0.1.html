@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
-<!--<html lang="en" xmlns="http://www.w3.org/1999/html">-->
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>离线陆海图</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -14,36 +13,18 @@
     <script src="map4.0.2(8).js" type="text/javascript"></script>
     <script src="arcgisCacheInfo.js"></script>
     <script src="https://cdn.bootcss.com/echarts/4.3.0-rc.2/echarts.js"></script>
-
-    <link rel="stylesheet" href="./ol.css">
-<!--    <script src="ol-debug.js" type="text/javascript" ></script>-->
-    <script src="https://cdn.bootcss.com/openlayers/4.6.5/ol-debug.js"></script>
-
+    <link href="ol.css" rel="stylesheet">
+    <script src="ol-debug.js"></script>
     <script type="text/javascript" src="jquery.js"></script>
-<!--    <script src="ol.js"></script>-->
+    <!-- <script src="ol.js"></script>-->
 
     <meta charset="UTF-8">
 
     <style type="text/css">
-
-        .san{ background:#000; float:left ; width:29.33%; height:46% !important; margin:2%;}
-        .san img{ width:100%; height:100%;    object-fit: cover;}
-        .bd>div{ display:none; height:100%!important}
-        .bd .current {
-            display: block;
-            font-size: 36px;
+        #menu{
+            z-index: 12000;
+            height: 100%;
         }
-        .bd{ height:calc(100% - 60px)}
-
-        .show_popup #boat{
-            width: 20px;
-            height: 20px;
-        }
-
-#menu{
-    z-index: 12000;
-    height: 50%;
-}
         #customers
 
         {
@@ -325,753 +306,1161 @@
     </style>
 
 </head>
-    <body>
-    <div id="menu">
-        <!--隐藏菜单-->
-        <div id="ensconce">
-            <h2>
-                <img src="../../leftMenu/images/show.png" alt="菜单栏">
-            </h2>
+<body>
+<div id="menu">
+    <!--隐藏菜单-->
+    <div id="ensconce">
+        <h2>
+            <img src="../../leftMenu/images/show.png" alt="菜单栏">
+            <!--                菜单栏-->
+        </h2>
+    </div>
+
+    <!--显示菜单-->
+    <div id="open">
+        <div class="navH">
+            菜单栏
+            <span><img class="obscure" src="../../leftMenu/images/obscure.png" alt=""></span>
         </div>
+        <div class="navBox">
+            <ul>
 
-        <!--显示菜单-->
-        <div id="open">
-            <div class="navH">
-                菜单栏
-                <span><img class="obscure" src="../../leftMenu/images/obscure.png" alt=""></span>
-            </div>
-            <div class="navBox">
-                <ul>
+                <li>
+                    <h2 class="obtain"><a href="用户管理_1.html" style="color: white">用户管理</a></h2>
+                    <div class="secondary to-zero">
+                    </div>
+                </li>
 
-                    <li>
-                        <h2 class="obtain"><a href="用户管理_1.html" style="color: white">用户管理</a></h2>
-                        <div class="secondary to-zero"></div>
-                    </li>
+                <!--                    <li>-->
+                <!--                        <h2 class="obtain">设备管理<i></i></h2>-->
+                <!--                        <div class="secondary to-zero">-->
+                <!--                            <h3>新增设备 <input name="checkbox" type="checkbox" value="checkbox"  /></h3>-->
+                <!--                            <h3>删除设备<input name="checkbox" type="checkbox" value="checkbox"  /></h3>-->
+                <!--                            <h3>参数设置<input name="checkbox" type="checkbox" value="checkbox"  /></h3>-->
+                <!--                        </div>-->
+                <!--                    </li>-->
+                <li>
+                    <!--                        <h2 class="obtain" id="dataSelect">数据查询服务</h2>-->
+                    <h2 class="obtain" >数据查询服务<i></i></h2>
+                    <div class="secondary to-zero">
+                        <h3 id="dataSelect">历史AIS船只统计</h3>
+                        <h3 id="dataSelect1">飞行器统计</h3>
+                        <h3 id="dataSelect2">潜水艇统计</h3>
+                    </div>
 
-                    <li>
-                        <h2 class="obtain" >数据查询服务<i></i></h2>
-                        <div class="secondary to-zero">
-                            <h3 id="dataSelect">历史AIS船只统计</h3>
-                            <h3 id="dataSelect1">飞行器统计</h3>
-                            <h3 id="dataSelect2">潜水艇统计</h3>
-                        </div>
-                    </li>
+                </li>
+                <li>
+                    <h2 class="obtain" id="inquire">报警信息查询</h2>
+                    <div class="secondary to-zero">
+                    </div>
+                </li>
+                <li>
+                    <h2 class="obtain">绘制区域<i></i></h2>
+                    <div class="secondary to-zero">
+                        <h3>
+                            <input type="radio" name="drawtest" value="Point" id="Point"
+                            />
+                            <label for="Point">点</label>
+                        </h3>
+                        <h3>
+                            <input type="radio" name="drawtest" value="LineString" id="LineString"
+                            />
+                            <label for="LineString">线</label>
+                        </h3>
+                        <h3><input type="radio" name="drawtest" value="Polygon" id="Polygon"  />
+                            <label for="Polygon">面</label>
+                        </h3>
 
-                    <li>
-                        <h2 class="obtain" id="inquire">报警信息查询</h2>
-                        <div class="secondary to-zero"></div>
-                    </li>
+                    </div>
+                </li>
+                <li>
+                    <h2 class="obtain" id="celiang">测距测面积<i></i></h2>
+                    <div class="secondary to-zero">
+                        <h3>
+                            <input type="radio" name="drawtest1" value="LineString" id="space"
+                            />
+                            <label for="LineString">测距离</label>
+                        </h3>
+                        <h3><input type="radio" name="drawtest1" value="Polygon" id="area"  />
+                            <label for="Polygon">测面积</label>
+                        </h3>
+                    </div>
+                </li>
+                <li>
+                    <!--                        <h2 class="obtain" id="dataSelect">数据查询服务</h2>-->
+                    <h2 class="obtain" id="dataSelect4">数据分析</h2>
 
-                    <li>
-                        <h2 class="obtain">绘制区域<i></i></h2>
-                        <div class="secondary to-zero">
-                            <h3>
-                                <input type="radio" name="drawtest" value="Point" id="Point" />
-                                <label for="Point">点</label>
-                            </h3>
-                            <h3>
-                                <input type="radio" name="drawtest" value="LineString" id="LineString" />
-                                <label for="LineString">线</label>
-                            </h3>
-                            <h3>
-                                <input type="radio" name="drawtest" value="Polygon" id="Polygon"  />
-                                <label for="Polygon">面</label>
-                            </h3>
-                        </div>
-                    </li>
 
-                    <li>
-                        <h2 class="obtain" id="celiang">测距测面积<i></i></h2>
-                        <div class="secondary to-zero">
-                            <h3>
-                                <input type="radio" name="drawtest1" value="LineString" id="space" />
-                                <label for="LineString">测距离</label>
-                            </h3>
-                            <h3>
-                                <input type="radio" name="drawtest1" value="Polygon" id="area"  />
-                                <label for="Polygon">测面积</label>
-                            </h3>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
+                </li>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="container">
-        <div id="formBox">
-            <div class="formBoxBox">
-
-                <div class="select ov-hidden">
-                    <p class="title ">AIS船只统计
-                        <span class="info " id="startTime">
-                            <input type="text"   placeholder="&nbsp;&nbsp;开始时间">
-                            <input type="text"  placeholder="&nbsp;&nbsp;结束时间">
-                            <button class="searchTest">查询</button>
-                        </span>
-                    </p>
-                </div>
-                <div class="close">关闭</div>
-            </div>
-            <div class="time ov-hidden"></div>
-
-            <div class="select">
-                <select>
-                    <option value ="所有类型">所有类型</option>
-                    <option value ="ex1">ex1</option>
-                    <option value="ex2">ex2</option>
-                    <option value="ex3">ex3</option>
-                </select>
-                <select>
-                    <option value ="所有船旗">所有船旗</option>
-                    <option value ="ex1">ex1</option>
-                    <option value="ex2">ex2</option>
-                    <option value="ex3">ex3</option>
-                </select>
-                <select>
-                    <option value ="所有状态">所有状态</option>
-                    <option value ="ex1">ex1</option>
-                    <option value="ex2">ex2</option>
-                    <option value="ex3">ex3</option>
-                </select>
-            </div>
-
-            <div class="form"  style=" overflow-y: auto; height: 100%; width:100%;padding-top: 10px">
-                <table id="customers">
-
-                    <tr>
-
-                        <th>时间</th>
-
-                        <th>船名</th>
-
-                        <th>IMO</th>
-
-                        <th>MMSI</th>
-                        <th>呼号</th>
-                        <th>类型</th>
-                        <th>DVT</th>
-                        <th>船旗</th>
-                        <th>目的港</th>
-                        <th>状态</th>
-                        <th>航速</th>
-                        <th>航向</th>
-                        <th>F.T.A</th>
-                        <th>货物</th>
-
-                    </tr>
-
-
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/05/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">停泊</td>
-                        <td height="30">0kts</td>
-                        <td height="30">正西</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-
-
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/05/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">停泊</td>
-                        <td height="30">0kts</td>
-                        <td height="30">正西</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/05/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">停泊</td>
-                        <td height="30">0kts</td>
-                        <td height="30">正西</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-
-
-
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/05/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">停泊</td>
-                        <td height="30">0kts</td>
-                        <td height="30">正西</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/05/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">停泊</td>
-                        <td height="30">0kts</td>
-                        <td height="30">正西</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/05/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">停泊</td>
-                        <td height="30">0kts</td>
-                        <td height="30">正西</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/05/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">停泊</td>
-                        <td height="30">0kts</td>
-                        <td height="30">正西</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/05/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">停泊</td>
-                        <td height="30">0kts</td>
-                        <td height="30">正西</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-
-
-                </table>
-            </div>
-            <div class="line"></div>
-        </div>
-    </div>
-    <div class="container">
+</div>
+<div class="container">
+    <div id="formBox">
         <div class="formBoxBox">
-            <table class="checkTable">
-                <caption class="checkTitle">查询结果</caption>
+
+            <div class="select ov-hidden">
+                <p class="title ">AIS船只统计
+                    <span class="info " id="startTime">
+                        <input type="text"   placeholder="&nbsp;&nbsp;开始时间">
+                        <input type="text"  placeholder="&nbsp;&nbsp;结束时间">
+                        <button class="searchTest">查询</button>
+                    </span>
+                </p>
+            </div>
+            <div class="close">关闭</div>
+        </div>
+        <div class="time ov-hidden">
+            <!--                <p class="title ">输入时间:</p>-->
+
+
+        </div>
+        <div class="select">
+            <select>
+                <option value ="所有类型">所有类型</option>
+                <option value ="ex1">ex1</option>
+                <option value="ex2">ex2</option>
+                <option value="ex3">ex3</option>
+            </select>
+            <select>
+                <option value ="所有船旗">所有船旗</option>
+                <option value ="ex1">ex1</option>
+                <option value="ex2">ex2</option>
+                <option value="ex3">ex3</option>
+            </select>
+            <select>
+                <option value ="所有状态">所有状态</option>
+                <option value ="ex1">ex1</option>
+                <option value="ex2">ex2</option>
+                <option value="ex3">ex3</option>
+            </select>
+        </div>
+        <div class="form"  style=" overflow-y: auto; height: 100%; width:100%;padding-top: 10px">
+            <table id="customers">
+
                 <tr>
-                    <th class="check1">船只名称</th>
-                    <th class="check1">船只类型</th>
-                    <th class="check1"></th>
-                    <th class="check1"></th>
+
+                    <th>时间</th>
+
+                    <th>船名</th>
+
+                    <th>IMO</th>
+
+                    <th>MMSI</th>
+                    <th>呼号</th>
+                    <th>类型</th>
+                    <th>DVT</th>
+                    <th>船旗</th>
+                    <th>目的港</th>
+                    <th>状态</th>
+                    <th>航速</th>
+                    <th>航向</th>
+                    <th>F.T.A</th>
+                    <th>货物</th>
+
                 </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">停泊</td>
+                    <td height="30">0kts</td>
+                    <td height="30">正西</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">停泊</td>
+                    <td height="30">0kts</td>
+                    <td height="30">正西</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">停泊</td>
+                    <td height="30">0kts</td>
+                    <td height="30">正西</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">停泊</td>
+                    <td height="30">0kts</td>
+                    <td height="30">正西</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">停泊</td>
+                    <td height="30">0kts</td>
+                    <td height="30">正西</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">停泊</td>
+                    <td height="30">0kts</td>
+                    <td height="30">正西</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">停泊</td>
+                    <td height="30">0kts</td>
+                    <td height="30">正西</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">停泊</td>
+                    <td height="30">0kts</td>
+                    <td height="30">正西</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+
+
             </table>
         </div>
+        <div class="line"></div>
     </div>
-    <div class="container1">
-        <div id="formBox1">
-            <div class="formBoxBox1">
+</div>
+<div class="container">
+    <div class="formBoxBox">
+        <table class="checkTable">
+            <caption class="checkTitle">查询结果</caption>
+            <tr>
+                <th class="check1">船只名称</th>
+                <th class="check1">船只类型</th>
+                <th class="check1"></th>
+                <th class="check1"></th>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="container1">
+    <div id="formBox1">
+        <div class="formBoxBox1">
 
-                <div class="select ov-hidden1">
-                    <p class="title1 ">飞行器统计
-                        <span class="info 1" id="startTime1">
+            <div class="select ov-hidden1">
+                <p class="title1 ">飞行器统计
+                    <span class="info 1" id="startTime1">
                         <input type="text"   placeholder="&nbsp;&nbsp;开始时间">
                         <input type="text"  placeholder="&nbsp;&nbsp;结束时间">
                         <button class="searchTest1">查询</button>
                     </span>
-                    </p>
-                </div>
-                <div class="close1">关闭</div>
+                </p>
             </div>
-            <div class="time ov-hidden1">
-<!--                <p class="title1 ">输入时间:</p>-->
-
-
-            </div>
-            <div class="select">
-                <select>
-                    <option value ="所有类型">所有类型</option>
-                    <option value ="ex1">ex1</option>
-                    <option value="ex2">ex2</option>
-                    <option value="ex3">ex3</option>
-                </select>
-                <select>
-                    <option value ="所有飞行器">所有飞行器</option>
-                    <option value ="ex1">ex1</option>
-                    <option value="ex2">ex2</option>
-                    <option value="ex3">ex3</option>
-                </select>
-                <select>
-                    <option value ="所有状态">所有状态</option>
-                    <option value ="ex1">ex1</option>
-                    <option value="ex2">ex2</option>
-                    <option value="ex3">ex3</option>
-                </select>
-            </div>
-            <div class="form1"  style=" overflow-y: auto; height: 100%; width:100%;padding-top: 10px">
-                <table id="customers1">
-
-                    <tr>
-
-                        <th>时间</th>
-
-                        <th>飞行器名</th>
-
-                        <th>IMO</th>
-
-                        <th>MMSI</th>
-                        <th>拨号</th>
-                        <th>类型</th>
-                        <th>DVT</th>
-                        <th>国籍</th>
-                        <th>目的地</th>
-                        <th>状态</th>
-                        <th>速度</th>
-                        <th>高度</th>
-                        <th>F.T.A</th>
-                        <th>货物</th>
-
-                    </tr>
-
-
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/12/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">工作</td>
-                        <td height="30">100</td>
-                        <td height="30">300m</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-
-
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/12/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">USA</td>
-                        <td height="30"></td>
-                        <td height="30">停止</td>
-                        <td height="30">200</td>
-                        <td height="30">250m</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/12/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">UK</td>
-                        <td height="30"></td>
-                        <td height="30">工作</td>
-                        <td height="30">390</td>
-                        <td height="30">290m</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-
-
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/12/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">工作</td>
-                        <td height="30">300</td>
-                        <td height="30">300m</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/12/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">工作</td>
-                        <td height="30">200</td>
-                        <td height="30">390m</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-
-
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/12/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">工作</td>
-                        <td height="30">200</td>
-                        <td height="30">390m</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-
-                    </tr>
-
-                </table>
-            </div>
-            <div class="line"></div>
+            <div class="close1">关闭</div>
         </div>
-    </div>
-    <div class="container1">
-        <div class="formBoxBox1">
-            <table class="checkTable1">
-                <caption class="checkTitle1">查询结果</caption>
+        <div class="time ov-hidden1">
+            <!--                <p class="title1 ">输入时间:</p>-->
+
+
+        </div>
+        <div class="select">
+            <select>
+                <option value ="所有类型">所有类型</option>
+                <option value ="ex1">ex1</option>
+                <option value="ex2">ex2</option>
+                <option value="ex3">ex3</option>
+            </select>
+            <select>
+                <option value ="所有飞行器">所有飞行器</option>
+                <option value ="ex1">ex1</option>
+                <option value="ex2">ex2</option>
+                <option value="ex3">ex3</option>
+            </select>
+            <select>
+                <option value ="所有状态">所有状态</option>
+                <option value ="ex1">ex1</option>
+                <option value="ex2">ex2</option>
+                <option value="ex3">ex3</option>
+            </select>
+        </div>
+        <div class="form1"  style=" overflow-y: auto; height: 100%; width:100%;padding-top: 10px">
+            <table id="customers1">
+
                 <tr>
-                    <th class="check2">飞行器名称</th>
-                    <th class="check2">飞行器类型</th>
-                    <th class="check2"></th>
-                    <th class="check2"></th>
+
+                    <th>时间</th>
+
+                    <th>飞行器名</th>
+
+                    <th>IMO</th>
+
+                    <th>MMSI</th>
+                    <th>拨号</th>
+                    <th>类型</th>
+                    <th>DVT</th>
+                    <th>国籍</th>
+                    <th>目的地</th>
+                    <th>状态</th>
+                    <th>速度</th>
+                    <th>高度</th>
+                    <th>F.T.A</th>
+                    <th>货物</th>
+
                 </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/12/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">工作</td>
+                    <td height="30">100</td>
+                    <td height="30">300m</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/12/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">USA</td>
+                    <td height="30"></td>
+                    <td height="30">停止</td>
+                    <td height="30">200</td>
+                    <td height="30">250m</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/12/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">UK</td>
+                    <td height="30"></td>
+                    <td height="30">工作</td>
+                    <td height="30">390</td>
+                    <td height="30">290m</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/12/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">工作</td>
+                    <td height="30">300</td>
+                    <td height="30">300m</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/12/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">工作</td>
+                    <td height="30">200</td>
+                    <td height="30">390m</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/12/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">工作</td>
+                    <td height="30">200</td>
+                    <td height="30">390m</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+
             </table>
         </div>
+        <div class="line"></div>
     </div>
-    <div class="container2">
-        <div id="formBox2">
-            <div class="formBoxBox2">
+</div>
+<div class="container1">
+    <div class="formBoxBox1">
+        <table class="checkTable1">
+            <caption class="checkTitle1">查询结果</caption>
+            <tr>
+                <th class="check2">飞行器名称</th>
+                <th class="check2">飞行器类型</th>
+                <th class="check2"></th>
+                <th class="check2"></th>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="container2">
+    <div id="formBox2">
+        <div class="formBoxBox2">
 
-                <div class="select ov-hidden2">
-                    <p class="title2 ">潜水艇统计
-                        <span class="info " id="startTime2">
+            <div class="select ov-hidden2">
+                <p class="title2 ">潜水艇统计
+                    <span class="info " id="startTime2">
                         <input type="text"   placeholder="&nbsp;&nbsp;开始时间">
                         <input type="text"  placeholder="&nbsp;&nbsp;结束时间">
                         <button class="searchTest2">查询</button>
                     </span>
-                    </p>
-                </div>
-                <div class="close2">关闭</div>
+                </p>
             </div>
-            <div class="time ov-hidden2">
-<!--                <p class="title2 ">输入时间:</p>-->
-            </div>
-            <div class="select">
-                <select>
-                    <option value ="所有类型">所有类型</option>
-                    <option value ="ex1">ex1</option>
-                    <option value="ex2">ex2</option>
-                    <option value="ex3">ex3</option>
-                </select>
-                <select>
-                    <option value ="潜水船只所属国家">潜水艇所属国家</option>
-                    <option value ="ex1">ex1</option>
-                    <option value="ex2">ex2</option>
-                    <option value="ex3">ex3</option>
-                </select>
-                <select>
-                    <option value ="所有状态">所有状态</option>
-                    <option value ="ex1">ex1</option>
-                    <option value="ex2">ex2</option>
-                    <option value="ex3">ex3</option>
-                </select>
-            </div>
-            <div class="form2"  style=" overflow-y: auto; height: 100%; width:100%;padding-top: 10px">
-                <table id="customers2">
-
-                    <tr>
-
-                        <th>时间</th>
-
-                        <th>潜水艇名</th>
-
-                        <th>IMO</th>
-
-                        <th>MMSI</th>
-                        <th>艇号</th>
-                        <th>类型</th>
-                        <th>DVT</th>
-                        <th>船旗</th>
-                        <th>目的港</th>
-                        <th>状态</th>
-                        <th>深度</th>
-                        <th>方向</th>
-
-
-                    </tr>
-
-
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/01/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">工作</td>
-                        <td height="30">1000</td>
-                        <td height="30">正西</td>
-
-
-                    </tr>
-
-
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/02/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">工作</td>
-                        <td height="30">1030</td>
-                        <td height="30">正西</td>
-
-
-                    </tr>
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/03/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">工作</td>
-                        <td height="30">500</td>
-                        <td height="30">正西</td>
-
-
-                    </tr>
-
-
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/04/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">工作</td>
-                        <td height="30">390</td>
-                        <td height="30">东南</td>
-
-
-                    </tr>
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/05/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">工作</td>
-                        <td height="30">100</td>
-                        <td height="30">正西</td>
-
-
-                    </tr>
-
-
-
-                    <tr  style="background: #DDDDDD">
-
-                        <td height="50">2018/06/</td>
-                        <td height="30">JIAOTONGJI</td>
-                        <td height="30"></td>
-                        <td height="30">4137869</td>
-                        <td height="30"></td>
-                        <td height="30">其他</td>
-                        <td height="30">N/A</td>
-                        <td height="30">CHN</td>
-                        <td height="30"></td>
-                        <td height="30">工作</td>
-                        <td height="30">200</td>
-                        <td height="30">正北</td>
-
-
-                    </tr>
-
-                </table>
-            </div>
-            <div class="line"></div>
+            <div class="close2">关闭</div>
         </div>
-    </div>
-    <div class="container2">
-        <div class="formBoxBox2">
-            <table class="checkTable2">
-                <caption class="checkTitle2">查询结果</caption>
+        <div class="time ov-hidden2">
+            <!--                <p class="title2 ">输入时间:</p>-->
+        </div>
+        <div class="select">
+            <select>
+                <option value ="所有类型">所有类型</option>
+                <option value ="ex1">ex1</option>
+                <option value="ex2">ex2</option>
+                <option value="ex3">ex3</option>
+            </select>
+            <select>
+                <option value ="潜水船只所属国家">潜水艇所属国家</option>
+                <option value ="ex1">ex1</option>
+                <option value="ex2">ex2</option>
+                <option value="ex3">ex3</option>
+            </select>
+            <select>
+                <option value ="所有状态">所有状态</option>
+                <option value ="ex1">ex1</option>
+                <option value="ex2">ex2</option>
+                <option value="ex3">ex3</option>
+            </select>
+        </div>
+        <div class="form2"  style=" overflow-y: auto; height: 100%; width:100%;padding-top: 10px">
+            <table id="customers2">
+
                 <tr>
-                    <th class="check3">潜水船只名称</th>
-                    <th class="check3">潜水船只类型</th>
-                    <th class="check3"></th>
-                    <th class="check3"></th>
+
+                    <th>时间</th>
+
+                    <th>潜水艇名</th>
+
+                    <th>IMO</th>
+
+                    <th>MMSI</th>
+                    <th>艇号</th>
+                    <th>类型</th>
+                    <th>DVT</th>
+                    <th>船旗</th>
+                    <th>目的港</th>
+                    <th>状态</th>
+                    <th>深度</th>
+                    <th>方向</th>
+
+
                 </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/01/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">工作</td>
+                    <td height="30">1000</td>
+                    <td height="30">正西</td>
+
+
+                </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/02/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">工作</td>
+                    <td height="30">1030</td>
+                    <td height="30">正西</td>
+
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/03/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">工作</td>
+                    <td height="30">500</td>
+                    <td height="30">正西</td>
+
+
+                </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/04/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">工作</td>
+                    <td height="30">390</td>
+                    <td height="30">东南</td>
+
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">工作</td>
+                    <td height="30">100</td>
+                    <td height="30">正西</td>
+
+
+                </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/06/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30"></td>
+                    <td height="30">4137869</td>
+                    <td height="30"></td>
+                    <td height="30">其他</td>
+                    <td height="30">N/A</td>
+                    <td height="30">CHN</td>
+                    <td height="30"></td>
+                    <td height="30">工作</td>
+                    <td height="30">200</td>
+                    <td height="30">正北</td>
+
+
+                </tr>
+
             </table>
         </div>
+        <div class="line"></div>
     </div>
-    <div class="container3">
-        <div id="formBox3">
-            <div class="formBoxBox3">
+</div>
+<div class="container2">
+    <div class="formBoxBox2">
+        <table class="checkTable2">
+            <caption class="checkTitle2">查询结果</caption>
+            <tr>
+                <th class="check3">潜水船只名称</th>
+                <th class="check3">潜水船只类型</th>
+                <th class="check3"></th>
+                <th class="check3"></th>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="container3">
+    <div id="formBox3">
+        <div class="formBoxBox3">
 
-                <div class="select ov-hidden3">
-                    <p class="title3 ">报警信息查询
-                        <span class="info3 " id="startTime3">
+            <div class="select ov-hidden3">
+                <p class="title3 ">报警信息查询
+                    <span class="info3 " id="startTime3">
                         <input type="text"   placeholder="&nbsp;&nbsp;开始时间">
                         <input type="text"  placeholder="&nbsp;&nbsp;结束时间">
                         <button class="searchTest3">查询</button>
                     </span>
-                    </p>
-                </div>
-                <div class="close3">关闭</div>
+                </p>
             </div>
-            <div class="time ov-hidden3">
-                <!--                <p class="title ">输入时间:</p>-->
+            <div class="close3">关闭</div>
+        </div>
+        <div class="time ov-hidden3">
+            <!--                <p class="title ">输入时间:</p>-->
 
 
+        </div>
+        <div class="select">
+            <select>
+                <option value ="所有类型">所有类型</option>
+                <option value ="ex1">ex1</option>
+                <option value="ex2">ex2</option>
+                <option value="ex3">ex3</option>
+            </select>
+            <select>
+                <option value ="所有状态">所有状态</option>
+                <option value ="ex1">ex1</option>
+                <option value="ex2">ex2</option>
+                <option value="ex3">ex3</option>
+            </select>
+            <select>
+                <option value ="对海">对海</option>
+                <option value ="对空">对空</option>
+            </select>
+        </div>
+        <div class="form3"  style=" overflow-y: auto; height: 100%; width:100%;padding-top: 10px">
+            <table id="customers3">
+
+                <tr>
+
+                    <th>时间</th>
+
+                    <th>名称</th>
+
+                    <th>呼号</th>
+
+                    <th>船旗</th>
+                    <th>深度</th>
+                    <th>高度</th>
+                    <th>目的港</th>
+                    <th>状态</th>
+                    <th>对海/对空</th>
+                    <th>警戒区</th>
+                    <th>待定栏</th>
+                    <th>待定栏</th>
+                    <th>待定栏</th>
+                    <th>待定栏</th>
+
+                </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30">4137869</td>
+                    <td height="30">CHN</td>
+                    <td height="30">60m</td>
+                    <td height="30">1000m</td>
+                    <td height="30">待定</td>
+                    <td height="30">其他</td>
+                    <td height="30">对海</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+
+
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30">4137869</td>
+                    <td height="30">CHN</td>
+                    <td height="30">60m</td>
+                    <td height="30">1000m</td>
+                    <td height="30">待定</td>
+                    <td height="30">其他</td>
+                    <td height="30">对海</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30">4137869</td>
+                    <td height="30">CHN</td>
+                    <td height="30">60m</td>
+                    <td height="30">1000m</td>
+                    <td height="30">待定</td>
+                    <td height="30">其他</td>
+                    <td height="30">对海</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+
+
+
+
+                <tr  style="background: #DDDDDD">
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30">4137869</td>
+                    <td height="30">CHN</td>
+                    <td height="30">60m</td>
+                    <td height="30">1000m</td>
+                    <td height="30">待定</td>
+                    <td height="30">其他</td>
+                    <td height="30">对海</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30">4137869</td>
+                    <td height="30">CHN</td>
+                    <td height="30">60m</td>
+                    <td height="30">1000m</td>
+                    <td height="30">待定</td>
+                    <td height="30">其他</td>
+                    <td height="30">对海</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30">4137869</td>
+                    <td height="30">CHN</td>
+                    <td height="30">60m</td>
+                    <td height="30">1000m</td>
+                    <td height="30">待定</td>
+                    <td height="30">其他</td>
+                    <td height="30">对海</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30">4137869</td>
+                    <td height="30">CHN</td>
+                    <td height="30">60m</td>
+                    <td height="30">1000m</td>
+                    <td height="30">待定</td>
+                    <td height="30">其他</td>
+                    <td height="30">对海</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                </tr>
+
+                <tr  style="background: #DDDDDD">
+
+                    <td height="50">2018/05/</td>
+                    <td height="30">JIAOTONGJI</td>
+                    <td height="30">4137869</td>
+                    <td height="30">CHN</td>
+                    <td height="30">60m</td>
+                    <td height="30">1000m</td>
+                    <td height="30">待定</td>
+                    <td height="30">其他</td>
+                    <td height="30">对海</td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+                    <td height="30"></td>
+
+                </tr>
+
+
+            </table>
+        </div>
+        <div class="line"></div>
+    </div>
+</div>
+<div class="container3">
+    <div class="formBoxBox3">
+        <table class="checkTable3">
+            <caption class="checkTitle3">查询结果</caption>
+            <tr>
+                <th class="check4">潜水船只名称</th>
+                <th class="check4">潜水船只类型</th>
+                <th class="check4"></th>
+                <th class="check4"></th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="container4">
+    <div id="formBox4">
+        <div class="formBoxBox4">
+
+            <div class="select ov-hidden4 item_title" style="width:30%;height:30%;">
+                <p class="title3 ">数据分析 </p>
+                <div class="close4">关闭</div>
             </div>
-            <div class="select">
-                <select>
-                    <option value ="所有类型">所有类型</option>
-                    <option value ="ex1">ex1</option>
-                    <option value="ex2">ex2</option>
-                    <option value="ex3">ex3</option>
-                </select>
-                <select>
-                    <option value ="所有状态">所有状态</option>
-                    <option value ="ex1">ex1</option>
-                    <option value="ex2">ex2</option>
-                    <option value="ex3">ex3</option>
-                </select>
-                <select>
-                    <option value ="对海">对海</option>
-                    <option value ="对空">对空</option>
-                </select>
+            <div style="top:30%;" class="item_table">
+                <table style="top:30%;">
+                    <tr>
+                        <td>
+                            <div id="chart" style=" width:400px;height:400px;"></div>
+                            <script type="text/javascript">
+                                // 初始化图表标签
+                                var myChart = echarts.init(document.getElementById('chart'));
+                                var options={
+                                    //定义一个标题
+                                    title:{
+                                        text:'报警信息季度统计柱状图'
+                                    },
+                                    legend:{
+                                        data:['报警数量']
+                                    },
+                                    //X轴设置
+                                    xAxis:{
+                                        data:['第一季度','第二季度','第三季度','第四季度']
+                                    },
+                                    yAxis:{
+                                    },
+                                    //name=legend.data的时候才能显示图例
+                                    series:[{
+                                        name:'数量',
+                                        type:'bar',
+                                        itemStyle: {
+                                            color: function(params) {
+                                                // build a color map as your need.
+                                                var colorList = [
+                                                    '#C6E579','#FE8463','#C6E579','#C6E579','#C1232B','#FAD860',
+                                                    '#C6E579','#FAD860','#C6E579','#FAD860','#C6E579','#FAD860'
+                                                ];
+                                                return colorList[params.dataIndex]
+                                            },
+                                        },
+                                        data:['10','13','9','10']
+                                    }],
+                                    backgroundColor: '#fff'
+
+                                };
+                                myChart.setOption(options);
+                            </script>
+                        </td>
+                        <td>
+                            <div id="chart2" style=" width:400px;height:400px;"></div>
+                            <script type="text/javascript">
+                                var myChart = echarts.init(document.getElementById('chart2'));
+                                var options={
+                                    //定义一个标题
+                                    title:{
+                                        text:'报警信息趋势折线图'
+                                    },
+                                    legend:{
+                                        data:['报警数量']
+                                    },
+                                    //X轴设置
+                                    xAxis:{
+                                        data:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+                                    },
+                                    yAxis:{
+                                    },
+                                    //name=legend.data的时候才能显示图例
+                                    series:[{
+                                        name:'数量',
+                                        type:'line',
+                                        data:['2','3','5','3','6','4','2','4','3','4','2','4']
+                                    }],
+                                    backgroundColor: '#fff'
+
+                                };
+                                myChart.setOption(options);
+                            </script>
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <div class="form3"  style=" overflow-y: auto; height: 100%; width:100%;padding-top: 10px">
-                <table id="customers3">
+        </div>
+        <div class="time ov-hidden3">
+            <!--                <p class="title ">输入时间:</p>-->
+
+
+        </div>
+
+        <div class="line"></div>
+    </div>
+</div>
+<div class="container4">
+    <div class="formBoxBox3">
+        <table class="checkTable3">
+            <caption class="checkTitle3">查询结果</caption>
+            <tr>
+                <th class="check4">潜水船只名称</th>
+                <th class="check4">潜水船只类型</th>
+                <th class="check4"></th>
+                <th class="check4"></th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+
+<!--    左侧地图区-->
+<button id="btn" class="btn"></button>
+<div id="map" class="maps">
+    <div id="popup" class="ol-popup">
+        <a href="#" id="popup-closer" class="ol-popup-closer">close</a>
+        <div id="popup-content" style="width:300px; height:120px;overflow: auto;"></div>
+    </div>
+
+</div>
+
+<style>
+    .san{ background:#000; float:left ; width:29.33%; height:46% !important; margin:2%;}
+    .san img{ width:100%; height:100%;    object-fit: cover;}
+    .bd>div{ display:none; height:100%!important}
+    .bd .current {
+        display: block;
+        font-size: 36px;
+    }
+    .bd{ height:calc(100% - 60px)}
+</style>
+<!-- 右侧操作区 -->
+<div class="right_ope">
+    <div class="video" id="box" >
+
+        <p class="hd">
+            <span><button>雷达</button></span>
+            <span><button>可见光</button></span>
+            <span><button>热成像</button></span>
+        </p>
+
+        <section class="bd">
+            <div class="leida current">
+
+                <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
+                <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
+                <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
+                <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
+                <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
+                <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
+
+            </div>
+            <div class="kejianguang">
+                <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
+                <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
+                <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
+                <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
+                <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
+                <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
+            </div>
+            <div class="rechenxiang">
+                <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
+                <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
+                <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
+                <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
+                <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
+                <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
+            </div>
+        </section>
+        <script>
+            var box = document.getElementById("box");
+            var spans = box.getElementsByTagName("button");
+            var lis = box.getElementsByTagName("div");
+            for (var i = 0; i < spans.length; i++) {
+                spans[i].aaa = i;
+                spans[i].onclick = function () {
+                    for (var i = 0; i < spans.length; i++) {
+                        spans[i].className = "";
+                        lis[i].className = "";
+                    }
+                    this.className = "current";
+                    lis[this.aaa].className = "current";
+                }
+            }
+        </script>
+        <div class="warn">
+            <div class="form"  style=" overflow-y: auto; height: 100%; width:100%;padding-top: 10px">
+                <table id="customers">
+                    <!--                        <tr>-->
+                    <!--                            24h报警信息统计-->
+                    <!--                        </tr>-->
 
                     <tr>
 
@@ -1079,19 +1468,13 @@
 
                         <th>名称</th>
 
-                        <th>呼号</th>
+                        <th>警戒区域</th>
 
-                        <th>船旗</th>
-                        <th>深度</th>
-                        <th>高度</th>
-                        <th>目的港</th>
-                        <th>状态</th>
-                        <th>对海/对空</th>
-                        <th>警戒区</th>
-                        <th>待定栏</th>
-                        <th>待定栏</th>
-                        <th>待定栏</th>
-                        <th>待定栏</th>
+                        <th>未定义</th>
+                        <th>未定义</th>
+                        <th>未定义</th>
+                        <th>未定义</th>
+
 
                     </tr>
 
@@ -1101,18 +1484,13 @@
 
                         <td height="50">2018/05/</td>
                         <td height="30">JIAOTONGJI</td>
+                        <td height="30">警戒区1</td>
                         <td height="30">4137869</td>
-                        <td height="30">CHN</td>
-                        <td height="30">60m</td>
-                        <td height="30">1000m</td>
-                        <td height="30">待定</td>
                         <td height="30">其他</td>
-                        <td height="30">对海</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
+                        <td height="30">N/A</td>
+                        <td height="30">CHN</td>
+
+
 
                     </tr>
 
@@ -1122,36 +1500,25 @@
 
                         <td height="50">2018/05/</td>
                         <td height="30">JIAOTONGJI</td>
+                        <td height="30">警戒区1</td>
                         <td height="30">4137869</td>
-                        <td height="30">CHN</td>
-                        <td height="30">60m</td>
-                        <td height="30">1000m</td>
-                        <td height="30">待定</td>
                         <td height="30">其他</td>
-                        <td height="30">对海</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
+                        <td height="30">N/A</td>
+                        <td height="30">CHN</td>
+
+
 
                     </tr>
                     <tr  style="background: #DDDDDD">
 
                         <td height="50">2018/05/</td>
                         <td height="30">JIAOTONGJI</td>
+                        <td height="30">警戒区2</td>
                         <td height="30">4137869</td>
-                        <td height="30">CHN</td>
-                        <td height="30">60m</td>
-                        <td height="30">1000m</td>
-                        <td height="30">待定</td>
                         <td height="30">其他</td>
-                        <td height="30">对海</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
+                        <td height="30">N/A</td>
+                        <td height="30">CHN</td>
+
 
                     </tr>
 
@@ -1159,384 +1526,191 @@
 
 
                     <tr  style="background: #DDDDDD">
+
                         <td height="50">2018/05/</td>
                         <td height="30">JIAOTONGJI</td>
+                        <td height="30">警戒区2</td>
                         <td height="30">4137869</td>
-                        <td height="30">CHN</td>
-                        <td height="30">60m</td>
-                        <td height="30">1000m</td>
-                        <td height="30">待定</td>
                         <td height="30">其他</td>
-                        <td height="30">对海</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
+                        <td height="30">N/A</td>
+                        <td height="30">CHN</td>
+
+
 
                     </tr>
                     <tr  style="background: #DDDDDD">
 
                         <td height="50">2018/05/</td>
                         <td height="30">JIAOTONGJI</td>
+                        <td height="30">警戒区3</td>
                         <td height="30">4137869</td>
-                        <td height="30">CHN</td>
-                        <td height="30">60m</td>
-                        <td height="30">1000m</td>
-                        <td height="30">待定</td>
                         <td height="30">其他</td>
-                        <td height="30">对海</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
+                        <td height="30">N/A</td>
+                        <td height="30">CHN</td>
+
+
 
                     </tr>
                     <tr  style="background: #DDDDDD">
 
                         <td height="50">2018/05/</td>
                         <td height="30">JIAOTONGJI</td>
+                        <td height="30">警戒区3</td>
                         <td height="30">4137869</td>
-                        <td height="30">CHN</td>
-                        <td height="30">60m</td>
-                        <td height="30">1000m</td>
-                        <td height="30">待定</td>
                         <td height="30">其他</td>
-                        <td height="30">对海</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
+                        <td height="30">N/A</td>
+                        <td height="30">CHN</td>
+
+
 
                     </tr>
                     <tr  style="background: #DDDDDD">
 
                         <td height="50">2018/05/</td>
                         <td height="30">JIAOTONGJI</td>
+                        <td height="30">警戒区3</td>
                         <td height="30">4137869</td>
-                        <td height="30">CHN</td>
-                        <td height="30">60m</td>
-                        <td height="30">1000m</td>
-                        <td height="30">待定</td>
                         <td height="30">其他</td>
-                        <td height="30">对海</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
+                        <td height="30">N/A</td>
+                        <td height="30">CHN</td>
+
+
+
                     </tr>
 
                     <tr  style="background: #DDDDDD">
 
                         <td height="50">2018/05/</td>
                         <td height="30">JIAOTONGJI</td>
+                        <td height="30">警戒区3</td>
                         <td height="30">4137869</td>
-                        <td height="30">CHN</td>
-                        <td height="30">60m</td>
-                        <td height="30">1000m</td>
-                        <td height="30">待定</td>
                         <td height="30">其他</td>
-                        <td height="30">对海</td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
-                        <td height="30"></td>
+                        <td height="30">N/A</td>
+                        <td height="30">CHN</td>
+
+
 
                     </tr>
 
 
                 </table>
             </div>
-            <div class="line"></div>
+            <!--                <span class="warnTitle"><span>名称</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>时间</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>区域</span></span>-->
+            <!--                <div class="warnLine">-->
+            <!--                    <span class="line"><span>船只1</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>17：00-17：10</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>警戒区1</span></span><br>-->
+            <!--                    <span class="line"><span>船只2</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>17：10-17：20</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>警戒区1</span></span><br>-->
+            <!--                    <span class="line"><span>飞行器3</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>17：20-17：30</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>警戒区2</span></span><br>-->
+            <!--                    <span class="line"><span>飞行器4</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>17：30-17：40</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>警戒区2</span></span><br>-->
+            <!--                    <span class="line"><span>潜艇5</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>17：40-17：50</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>警戒区3</span></span><br>-->
+            <!--                </div>-->
         </div>
     </div>
-    <div class="container3">
-        <div class="formBoxBox3">
-            <table class="checkTable3">
-                <caption class="checkTitle3">查询结果</caption>
-                <tr>
-                    <th class="check4">潜水船只名称</th>
-                    <th class="check4">潜水船只类型</th>
-                    <th class="check4"></th>
-                    <th class="check4"></th>
-                </tr>
-            </table>
-        </div>
+</div>
+<!-- 底部 -->
+<div class="foot_menu" id="foot_menu_">
+    <ul>
+        <li>
+            <p>测量结果：<span id="output"></span></p>
+        </li>
+        <li>
+            <p>搜索到[<span>3</span>]个雷达服务</p>
+        </li>
+        <li>
+            <p>连接[<span>1</span>]个AIS服务</p>
+        </li>
+        <!--            <li>-->
+        <!--                <p>连接[<span>0</span>]个报警服务</p>-->
+        <!--            </li>-->
+        <li>
+            <!--                吕雯-->
+            <p>经纬度：<span id="mp"></span></p>
+        </li>
+        <li>
+            <p>船舶统计：AIS：(<span>0/6</span>)&nbsp;RADAR:(<span>5/35/221</span>) FUSE:(<i></i>)</p>
+        </li>
+        <li>
+            <p>实时报警：0</p>
+        </li>
+    </ul>
+    <div class="time">
+        <p>当前用户名：<b>admin</b></p>
+        <p>用户编号：<b>123456</b></p>
+        <p><span>系统时间：<b id="nowtime"></b></span></p>
     </div>
+</div>
+<style type="text/css" rel="stylesheet">
+
+    .show_popup #boat{
+        width: 20px;
+        height: 20px;
+    }
+
+</style>
 
 
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    var  vm  = new Vue();
+</script>
+<script>
+
+    // var oControl = document.querySelector('.control');
+
+    var oClose = document.querySelector('.close');
+    var container = document.querySelector(".container");
+    var dataSelect = document.getElementById("dataSelect");
+    dataSelect.addEventListener('click', function () {
+        container.style.display = 'block';
+    })
+    oClose.addEventListener('click', function () {
+        container.style.display = 'none';
+    })
 
 
-    <!--    左侧地图区-->
-    <button id="btn" class="btn"></button>
-    <div id="map" class="maps">
-        <div id="popup" class="ol-popup">
-            <a href="#" id="popup-closer" class="ol-popup-closer">close</a>
-            <div id="popup-content" style="width:300px; height:120px;"></div>
-        </div>
+    var oClose1 = document.querySelector('.close1');
+    var container1 = document.querySelector(".container1");
+    var dataSelect1 = document.getElementById("dataSelect1");
+    dataSelect1.addEventListener('click', function () {
+        container1.style.display = 'block';
+    })
+    oClose1.addEventListener('click', function () {
+        container1.style.display = 'none';
+    })
 
-    </div>
-<!--比例尺单位选择-->
-    <select id="units" style="display: none">
 
-        <option value="degrees">degrees</option>
+    var oClose2 = document.querySelector('.close2');
+    var container2 = document.querySelector(".container2");
+    var dataSelect2 = document.getElementById("dataSelect2");
+    dataSelect2.addEventListener('click', function () {
+        container2.style.display = 'block';
+    })
+    oClose2.addEventListener('click', function () {
+        container2.style.display = 'none';
+    })
+    var oClose3 = document.querySelector('.close3');
+    var container3 = document.querySelector(".container3");
+    var inquire = document.getElementById("inquire");
+    inquire.addEventListener('click', function () {
+        container3.style.display = 'block';
+    })
+    oClose3.addEventListener('click', function () {
+        container3.style.display = 'none';
+    })
 
-        <option value="imperial">imperial inch</option>
-
-        <option value="us">us inch</option>
-
-        <option value="nautical" selected>nautical mile</option>
-
-        <option value="metric">metric</option>
-
-    </select>
-
-    <!-- 右侧操作区 -->
-    <div class="right_ope">
-        <div class="video" id="box" >
-
-            <p class="hd">
-                <span><button>雷达</button></span>
-                <span><button>可见光</button></span>
-                <span><button>热成像</button></span>
-            </p>
-
-            <section class="bd">
-                <div class="leida current">
-                    <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
-                    <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
-                    <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
-                    <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
-                    <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
-                    <span class="san">  <img  src="../img/雷达.gif" width="100%" /></span>
-                </div>
-                <div class="kejianguang">
-                    <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
-                    <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
-                    <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
-                    <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
-                    <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
-                    <span class="san">  <video src="../img/可见光.mp4" width=100% height="100%" controls></video></span>
-                </div>
-                <div class="rechenxiang">
-                    <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
-                    <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
-                    <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
-                    <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
-                    <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
-                    <span class="san">  <video src="../img/热成像.mp4" width=100% height="100%" controls></video></span>
-                </div>
-            </section>
-
-            <script>
-                var box = document.getElementById("box");
-                var spans = box.getElementsByTagName("button");
-                var lis = box.getElementsByTagName("div");
-                for (var i = 0; i < spans.length; i++) {
-                    spans[i].aaa = i;
-                    spans[i].onclick = function () {
-                        for (var i = 0; i < spans.length; i++) {
-                            spans[i].className = "";
-                            lis[i].className = "";
-                        }
-                        this.className = "current";
-                        lis[this.aaa].className = "current";
-                    }
-                }
-            </script>
-
-        </div>
-        <div class="warn">
-            <div class="form">
-                <div style="height:165px;weight:100%">
-                    基站
-                </div>
-                <div style="height:165px;weight:100%">
-                    <div class="shujufenxi">
-                        数据分析
-                    </div><br><br>
-                    <table style="top:30%;">
-                        <tr>
-                            <td>
-                    <div>
-                        <div id="chart" style=" width:240px;height:140px;"></div>
-                        <script type="text/javascript">
-                            // 初始化图表标签
-                            var myChart = echarts.init(document.getElementById('chart'));
-                            var options={
-                                //定义一个标题
-                                title:{
-                                    text:'报警信息季度统计柱状图',
-                                    textStyle:{
-                                        fontSize:15,
-                                        align:'center'
-                                    }
-                                },
-                                grid:{
-                                    x:25,
-                                    y:45,
-                                    x2:5,
-                                    y2:20
-                                },
-                                legend:{
-                                    data:['报警数量']
-                                },
-                                //X轴设置
-                                xAxis:{
-                                    data:['第一季度','第二季度','第三季度','第四季度']
-                                },
-                                yAxis:{
-                                },
-                                //name=legend.data的时候才能显示图例
-                                series:[{
-                                    name:'数量',
-                                    type:'bar',
-                                    barWidth: 25,
-                                    itemStyle: {
-                                        color: function(params) {
-                                            // build a color map as your need.
-                                            var colorList = [
-                                                '#C6E579','#FE8463','#C6E579','#C6E579','#C1232B','#FAD860',
-                                                '#C6E579','#FAD860','#C6E579','#FAD860','#C6E579','#FAD860'
-                                            ];
-                                            return colorList[params.dataIndex]
-                                        },
-                                    },
-                                    data:['10','13','9','10']
-                                }],
-                                backgroundColor: '#fff'
-
-                            };
-                            myChart.setOption(options);
-                        </script>
-                    </div>
-                            </td>
-                            <td>
-                                <div id="chart2" style=" width:240px;height:140px;"></div>
-                                <script type="text/javascript">
-                                    var myChart = echarts.init(document.getElementById('chart2'));
-                                    var options={
-                                        //定义一个标题
-                                        title:{
-                                            text:'报警信息趋势折线图',
-                                            textStyle:{
-                                                fontSize:15,
-                                                align:'center'
-                                            }
-                                        },
-                                        grid:{
-                                            x:25,
-                                            y:45,
-                                            x2:5,
-                                            y2:20
-                                        },
-                                        legend:{
-                                            data:['报警数量']
-                                        },
-                                        //X轴设置
-                                        xAxis:{
-                                            data:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-                                        },
-                                        yAxis:{
-                                        },
-                                        //name=legend.data的时候才能显示图例
-                                        series:[{
-                                            name:'数量',
-                                            type:'line',
-                                            data:['2','3','5','3','6','4','2','4','3','4','2','4']
-                                        }],
-                                        backgroundColor: '#fff'
-
-                                    };
-                                    myChart.setOption(options);
-                                </script>
-                            </td>
-                        </tr>
-                    </table>
-
-            </div>
-        </div>
-    </div>
-    <!-- 底部 -->
-    <div class="foot_menu" id="foot_menu_">
-        <ul>
-            <li>
-                <p>测量结果：<span id="output"></span></p>
-            </li>
-            <li>
-                <p>搜索到[<span>3</span>]个雷达服务</p>
-            </li>
-            <li>
-                <p>连接[<span>1</span>]个AIS服务</p>
-            </li>
-            <li>
-                <!--                吕雯-->
-                <p>经纬度：<span id="mp" style="display: inline-block"></span></p>
-            </li>
-            <li>
-                <p>船舶统计：AIS：(<span>0/6</span>)&nbsp;RADAR:(<span>5/35/221</span>) FUSE:(<i></i>)</p>
-            </li>
-            <li>
-                <p>实时报警：0</p>
-            </li>
-
-            <li class="time">
-                <p>当前用户名：<b>admin</b></p>
-                <p>用户编号：<b>123456</b></p>
-                <p><span>系统时间：<b id="nowtime"></b></span></p>
-            </li>
-        </ul>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-        <script>
-            var  vm  = new Vue();
-        </script>
-    <script>
-        var oClose = document.querySelector('.close');
-        var container = document.querySelector(".container");
-        var dataSelect = document.getElementById("dataSelect");
-        dataSelect.addEventListener('click', function () {
-            container.style.display = 'block';
-        });
-        oClose.addEventListener('click', function () {
-            container.style.display = 'none';
-        });
-
-        var oClose1 = document.querySelector('.close1');
-        var container1 = document.querySelector(".container1");
-        var dataSelect1 = document.getElementById("dataSelect1");
-        dataSelect1.addEventListener('click', function () {
-            container1.style.display = 'block';
-        });
-        oClose1.addEventListener('click', function () {
-            container1.style.display = 'none';
-        });
-
-        var oClose2 = document.querySelector('.close2');
-        var container2 = document.querySelector(".container2");
-        var dataSelect2 = document.getElementById("dataSelect2");
-        dataSelect2.addEventListener('click', function () {
-            container2.style.display = 'block';
-        });
-        oClose2.addEventListener('click', function () {
-            container2.style.display = 'none';
-        });
-        var oClose3 = document.querySelector('.close3');
-        var container3 = document.querySelector(".container3");
-        var inquire = document.getElementById("inquire");
-        inquire.addEventListener('click', function () {
-            container3.style.display = 'block';
-        });
-        oClose3.addEventListener('click', function () {
-            container3.style.display = 'none';
-        })
-
-    </script>
-    <script src="../../leftMenu/js/menu.js"></script>
-    </body>
+    var oClose4 = document.querySelector('.close4');
+    var container4 = document.querySelector(".container4");
+    var dataSelect4 = document.getElementById("dataSelect4");
+    dataSelect4.addEventListener('click', function () {
+        container4.style.display = 'block';
+    })
+    oClose4.addEventListener('click', function () {
+        container4.style.display = 'none';
+    })
+    $("#formBox4").parent().css({"position":"absolute","z-index":10000,"display":"block"});
+    $("#dataSelect4").click(function(){
+        $("#formBox4").css("display","block");
+    });
+</script>
+<script src="../../leftMenu/js/menu.js"></script>
+</body>
 </html>
